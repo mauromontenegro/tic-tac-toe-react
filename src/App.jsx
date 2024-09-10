@@ -10,10 +10,18 @@ import { Board } from './components/Board'
 function App() {
 
   /* Tablero del juego -> Se inicializa con null */
-  const [board, setBoard] = useState(Array(9).fill(null))
+  const [board, setBoard] = useState(() => {
+    /* En caso de existir, cargo el board guardado en localStorage; sino, inicializo un board nuevo */
+    const storedBoard = window.localStorage.getItem('board')
+    return storedBoard ? JSON.parse(storedBoard) : Array(9).fill(null)
+  })
 
-  /* Estado para saber el turno actual -> Se inicializa con la "X" */
-  const [turn, setTurn] = useState(TURNS.X)
+  /* Estado para saber el turno actual */
+  const [turn, setTurn] = useState(() => {
+    /* En caso de existir, cargo el turno guardado en localStorage; sino, se inicializa con la "X" */
+    const storedTurn = window.localStorage.getItem('turn')
+    return storedTurn ? storedTurn : TURNS.X
+  })
 
   /* Estado para saber si hay un ganador -> Se inicializa con null; será false si hay empate o true si hay ganador */
   const [winner, setWinner] = useState(null)
@@ -29,6 +37,9 @@ function App() {
     /* Cambiamos el turno */
     const newTurn = getNewTurn(turn)
     setTurn(newTurn)
+    /* Guardamos la partida en local storage */
+    window.localStorage.setItem('board', JSON.stringify(newBoard))
+    window.localStorage.setItem('turn', newTurn)
     /* Verificamos si hay un ganador */
     const theWinner = checkWinner(newBoard)
     setWinner(theWinner)
