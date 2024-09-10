@@ -4,23 +4,21 @@ import { Square } from './components/Square'
 import './App.css'
 import { Button } from './components/Button'
 import { ResultModal } from './components/ResultModal'
-import { checkWinner, getNewTurn } from './components/utils'
+import { getInitialBoard, getInitialTurn, checkWinner, getNewTurn } from './components/utils'
 import { Board } from './components/Board'
 
 function App() {
 
-  /* Tablero del juego -> Se inicializa con null */
+  /* Tablero del juego */
   const [board, setBoard] = useState(() => {
-    /* En caso de existir, cargo el board guardado en localStorage; sino, inicializo un board nuevo */
-    const storedBoard = window.localStorage.getItem('board')
-    return storedBoard ? JSON.parse(storedBoard) : Array(9).fill(null)
+    /* Inicializo estado */
+    return getInitialBoard()
   })
 
   /* Estado para saber el turno actual */
   const [turn, setTurn] = useState(() => {
-    /* En caso de existir, cargo el turno guardado en localStorage; sino, se inicializa con la "X" */
-    const storedTurn = window.localStorage.getItem('turn')
-    return storedTurn ? storedTurn : TURNS.X
+    /* Inicializo estado */
+    return getInitialTurn()
   })
 
   /* Estado para saber si hay un ganador -> Se inicializa con null; será false si hay empate o true si hay ganador */
@@ -38,8 +36,7 @@ function App() {
     const newTurn = getNewTurn(turn)
     setTurn(newTurn)
     /* Guardamos la partida en local storage */
-    window.localStorage.setItem('board', JSON.stringify(newBoard))
-    window.localStorage.setItem('turn', newTurn)
+    saveGame(newBoard, newTurn)
     /* Verificamos si hay un ganador */
     const theWinner = checkWinner(newBoard)
     setWinner(theWinner)
@@ -48,9 +45,19 @@ function App() {
   /* Función para reiniciar el juego */
   const resetGame = () => {
     /* Seteamos los estados con sus valores iniciales */
-    setBoard(Array(9).fill(null))
-    setTurn(TURNS.X)
+    let board = Array(9).fill(null)
+    setBoard(board)
+    let turn = TURNS.X
+    setTurn(turn)
     setWinner(null)
+    /* Guardamos la partida en local storage */
+    saveGame(board, turn)
+  }
+
+  /* Función para guardar la partida en local storage */
+  const saveGame = (board, turn) => {
+    window.localStorage.setItem('board', JSON.stringify(board))
+    window.localStorage.setItem('turn', turn)
   }
 
   return (
