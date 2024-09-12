@@ -1,4 +1,7 @@
 import { Square } from "./Square"
+import { motion } from "framer-motion"
+
+const MotionSquare = motion.create(Square);
 
 export function Board({ board, handleClick }) {
     return (
@@ -8,9 +11,11 @@ export function Board({ board, handleClick }) {
                     handleClick(index);
                 };
                 return (
-                    <Square key={index} index={index} handleClick={fnHandleClick}>
+                    <MotionSquare
+                        key={index} index={index} handleClick={fnHandleClick}
+                        whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                         {square}
-                    </Square>
+                    </MotionSquare>
                 );
             })}
         </>

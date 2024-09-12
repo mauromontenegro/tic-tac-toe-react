@@ -1,15 +1,15 @@
-export const Square = ({ children, handleClick, index, isSelected }) => {
+import React from 'react';
 
-    const className = `square ${isSelected ? 'is-selected' : ''}`
+export const Square = React.forwardRef(({ children, handleClick, index, isSelected }, ref) => {
+    const className = `square ${isSelected ? 'is-selected' : ''}`;
 
-    /* Función que se ejecuta al hacer click en un Square */
     const fnHandleClick = () => {
-        handleClick(index)
-    }
+        handleClick(index);
+    };
 
     return (
-        <div className={className} onClick={fnHandleClick}>
+        <div ref={ref} className={className} onClick={fnHandleClick}>
             {children}
         </div>
-    )
-}
+    );
+});

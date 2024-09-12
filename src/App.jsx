@@ -62,18 +62,21 @@ function App() {
 
   return (
     <main className='board'>
-      <h1>Ta te ti</h1>
+      <h1>TIC TAC TOE</h1>
       <section className='game'>
         <Board board={board} handleClick={updateBoard}></Board>
       </section>
 
       <section className='turn'>
-        <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
-        <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
+        <h2>Current turn</h2>
+        <div className='container'>
+          <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
+          <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
+        </div>
       </section>
 
       <section>
-        <Button handleClick={resetGame}>Reiniciar Juego</Button>
+        <Button handleClick={resetGame}>Reset game</Button>
       </section>
 
       {/* Modal que indica resultado del juego */}
