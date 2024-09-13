@@ -7,7 +7,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #1a1a1a;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -17,11 +17,10 @@
 }
 
 body {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  min-width: 320px;
-  min-height: 100vh;
+
+  color: white;
+  text-shadow: 0 0 15px #494949, 0 0 5px #494949, 0 0 5px #494949, 0 0 5px #494949;
+  font-family: 'Roboto', sans-serif;
 }
 
 * {
@@ -37,26 +36,30 @@ body {
 }
 
 .board h1 {
-  color: #eee;
+  color: white;
   margin-bottom: 32px;
 }
 
 .board button {
-  padding: 8px 12px;
-  margin: 25px;
+  padding: 10px 15px;
+  margin: 20px;
   background: transparent;
-  border: 2px solid #eee;
-  color: #eee;
-  width: 100px;
-  border-radius: 5px;
-  transition: 0.1s;
+  border: 2px solid white;
+  color: white;
+  text-shadow: 0 0 15px #494949, 0 0 5px #494949, 0 0 5px #494949, 0 0 5px #494949;
+  width: 120px;
+  border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .board button:hover {
-  background: #eee;
-  color: #222;
+  background-color: #ff1111;
+  border: 2px solid #ff1111;
+  text-shadow: none;
+  color: white;
+  box-shadow: 0 0 5px #ff1111, 0 0 5px #ff1111, inset 0 0 5px #ff1111;
 }
 
 .board .game {
@@ -71,7 +74,8 @@ body {
 }
 
 .turn h2 {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  margin-top: 35px;
 }
 
 .turn .container {
@@ -83,22 +87,46 @@ body {
 
 .turn .square,
 .winner .square {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
+  font-size: 28px;
   pointer-events: none;
   border-color: transparent;
+}
+
+.winner .square-x {
+  border: 3px solid #ff1145;
+}
+
+.winner .square-o {
+  border: 3px solid #00ff00;
 }
 
 .turn .square {
   margin: 5px;
   border: 1px solid #979797;
-  color: #6b6b6b;
+  color: rgba(255, 255, 255, 0.644);
+  text-shadow: 0 0 15px #fff, 0 0 25px #494949, 0 0 35px #494949, 0 0 45px #494949;
+  box-shadow: 0 0 5px #494949, inset 0 0 10px #494949;
 }
 
-.square.is-selected {
-  border: 1px solid #eee;
-  color: #fff;
-  background: rgb(83, 83, 83);
+.turn .square.is-selected {
+  background-color: #111;
+  color: white; /* Color brillante para las X y O seleccionadas */
+}
+
+.turn .square-x.is-selected {
+  color: #ff1145;
+  border: 3px solid #ff1145;
+  text-shadow: 0 0 10px #ff1145, 0 0 20px #ff1145, 0 0 30px #ff1145;
+  box-shadow: 0 0 10px #ff1145, inset 0 0 10px #ff1145;
+}
+
+.turn .square-o.is-selected {
+  color: #00ff00;
+  border: 3px solid #00ff00;
+  text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+  box-shadow: 0 0 10px #00ff00, inset 0 0 10px #00ff00;
 }
 
 .winner {
@@ -114,9 +142,9 @@ body {
 
 .winner .text {
   background: #111;
+  border: 2px solid white;
   height: 300px;
   width: 320px;
-  border: 2px solid #eee;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -128,21 +156,50 @@ body {
 .winner .win {
   margin: 0 auto;
   width: fit-content;
-  border: 2px solid #eee;
   border-radius: 10px;
   display: flex;
   gap: 15px;
 }
 
 .square {
-  width: 120px;
-  height: 120px;
+  width: 90px;
+  height: 90px;
   border: 3px solid #eee;
   border-radius: 8px;
   display: grid;
   place-items: center;
   cursor: pointer;
   font-size: 48px;
-  background-color: #313131;
-  text-shadow: #111 2px 2px 2px;
+  background-color: #1a1a1a; /* Fondo más oscuro */
+  color: #fff;
+  text-shadow: 0 0 10px #fff, 0 0 20px #ff1111, 0 0 30px #ff1111, 0 0 40px #ff1111;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+.square:hover {
+  box-shadow: 0 0 10px white, inset 0 0 5px white;
+  background-color: #282828;
+}
+
+.square-x {
+  color: #ff1145;
+  border: 3px solid #ff1145;
+  text-shadow: 0 0 10px #ff1145, 0 0 20px #ff1145, 0 0 50px #ff1145;
+  box-shadow: 0 0 10px #ff1145, inset 0 0 10px #ff1145;
+}
+
+.square-x:hover {
+  box-shadow: 0 0 10px #ff1145, inset 0 0 10px #ff1145;
+}
+
+.square-o {
+  color: #00ff00;
+  border: 3px solid #00ff00;
+  text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 50px #00ff00;
+  box-shadow: 0 0 10px #00ff00, inset 0 0 10px #00ff00;
+}
+
+.square-o:hover {
+  box-shadow: 0 0 10px #00ff00, inset 0 0 10px #00ff00;
+}
+
